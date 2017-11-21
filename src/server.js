@@ -1,11 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const colors = require('colors/safe');
 const bodyParser = require('body-parser');
 const fbRobot = require('./fbRobot');
 const getConfig = require('./config');
-
-require('dotenv').config();
 
 // parse various different custom JSON types as JSON
 const run = async () => {

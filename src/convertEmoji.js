@@ -2,51 +2,30 @@ const fs = require('fs');
 const path = require('path');
 const emojiMapper = require('./emojiMapper.json');
 const sanitize = require("sanitize-filename");
-const request = require('request');
-
-const getImageSrcs = (str) => {
-  let m;
-  let urls = [];
-  let rex = /<img[^>]+src="?([^"\s]+)"?\s*\/?>/g;
-
-  while ( m = rex.exec( str ) ) {
-    urls.push( m[1] );
-  }
-
-  return urls;
-};
-
-const downloadImage = (uri, filename) => {
-  return new Promise((resolve, reject) => {
-    request.head(uri, function(err){
-      if(err) {
-        return reject(err);
-      }
-
-      request(uri)
-        .pipe(fs.createWriteStream(filename))
-        .on('close', resolve);
-    });
-  });
-};
+const { getImageSrcs, downloadImage } = require('./helpers');
 
 const getEmoji = (src) => {
-  if (emojiMapper[src]) {
-    return Promise.resolve(emojiMapper[src]);
+  const mapperKey = src.split('/').reverse()[0];
+  if (emojiMapper[mapperKey]) {
+    return Promise.resolve(emojiMapper[mapperKey].value);
   } else {
     const filePath = path.join(__dirname, '../tmp/', sanitize(src));
     return downloadImage(src, filePath)
       .then(() => {
-        emojiMapper[src] = ':unknown_emoji:';
+        emojiMapper[mapperKey] = {
+          url: src,
+          value: ':unknown_emoji:'
+        };
         fs.writeFileSync(path.join(__dirname, './emojiMapper.json'), JSON.stringify(emojiMapper, null, 2));
-        return ':unknown_emoji:';
+        return emojiMapper[mapperKey].value;
       });
   }
 };
 
 module.exports = async (text, html) => {
   if(html.indexOf('<img') > -1) {
-    const srcs = getImageSrcs(html);
+    const srcs = getImageSrcs(html)
+      .filter((url) => url.indexOf('emoji.php') > -1);
 
     let promise = Promise.resolve();
 

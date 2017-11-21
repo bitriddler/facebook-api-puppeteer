@@ -23,16 +23,18 @@ const extractMessages = (html, {name} = {}) => {
   const $ = cheerio.load(html);
   const values = [];
   let currentName = '';
+  let switchUser = false;
   $('div[attachments*="List"]')
     .each(function () {
       const $title = $(this).parent().prev();
 
-      if ($title[0] && $title[0].name === 'h5') {
+      if ($title[0] && $title[0].name === 'h5' && currentName !== $title.text()) {
+        switchUser = !switchUser;
         currentName = $title.text();
       }
 
       values.push({
-        me: currentName.indexOf(name) < 0,
+        switch: switchUser,
         name: currentName,
         bodyHtml: $(this).html(),
         bodyText: $(this).text(),

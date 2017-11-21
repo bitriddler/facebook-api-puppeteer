@@ -3,7 +3,7 @@ const config = {
     url: 'https://www.messenger.com',
   },
   local: {
-    port: 6005,
+    port: process.env.PORT,
     host: 'localhost',
   }
 };

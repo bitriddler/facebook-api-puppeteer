@@ -1,13 +1,82 @@
 {
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z9f/1/16/1f61b.png": ":p",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z8c/1/32/1f604.png": ";D",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/zce/1/16/1f600.png": ":D",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/zbe/1/32/1f60f.png": ":/",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/zf4/1/16/1f617.png": ":*",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z88/1/32/1f600.png": ":D",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z8a/1/32/1f602.png": ":'D",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z6d/1/16/1f610.png": ":|",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z2/1/16/1f60d.png": ":<3",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/z4c/1/16/1f642.png": ":)",
-  "https://static.xx.fbcdn.net/images/emoji.php/v9/zd0/1/16/1f602.png": ":'D"
+  "1f61b.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z9f/1/16/1f61b.png",
+    "value": ":p"
+  },
+  "1f604.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z8c/1/16/1f604.png",
+    "value": ";D"
+  },
+  "1f600.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/zce/1/16/1f600.png",
+    "value": ":D"
+  },
+  "1f60f.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/zbe/1/16/1f60f.png",
+    "value": ":/"
+  },
+  "1f617.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/zf4/1/16/1f617.png",
+    "value": ":kiss:"
+  },
+  "1f610.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z6d/1/16/1f610.png",
+    "value": ":|"
+  },
+  "1f642.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z4c/1/16/1f642.png",
+    "value": ":)"
+  },
+  "1f602.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/zd0/1/16/1f602.png",
+    "value": ":'D"
+  },
+  "1f60a.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z7f/1/16/1f60a.png",
+    "value": ":shy_smile:"
+  },
+  "1f618.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z75/1/16/1f618.png",
+    "value": ":kiss_love:"
+  },
+  "1f603.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z51/1/16/1f603.png",
+    "value": ":D"
+  },
+  "1f60d.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z2/1/16/1f60d.png",
+    "value": ":smile_love:"
+  },
+  "1f61e.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z22/1/16/1f61e.png",
+    "value": ":unknown_emoji:"
+  },
+  "1f62d.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z40/1/16/1f62d.png",
+    "value": ":unknown_emoji:"
+  },
+  "1f606.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z8e/1/32/1f606.png",
+    "value": ":unknown_emoji:"
+  },
+  "1f611.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/zee/1/16/1f611.png",
+    "value": ":unknown_emoji:"
+  },
+  "263a.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z1/1/32/263a.png",
+    "value": ":unknown_emoji:"
+  },
+  "f0000.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z73/1/16/f0000.png",
+    "value": ":unknown_emoji:"
+  },
+  "270c.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z61/1/16/270c.png",
+    "value": ":unknown_emoji:"
+  },
+  "1f601.png": {
+    "url": "https://static.xx.fbcdn.net/images/emoji.php/v9/z9/1/32/1f601.png",
+    "value": ":unknown_emoji:"
+  }
 }

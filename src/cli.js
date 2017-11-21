@@ -1,12 +1,17 @@
+require('dotenv').config();
+
+const path = require('path');
+const fs = require('fs');
 const request = require('request');
 const colors = require('colors/safe');
 const argv = require('minimist')(process.argv.slice(2));
 const prompt = require('prompt');
+const Table = require('cli-table');
+const sanitize = require("sanitize-filename");
 const arToFranko = require('./arToFranko');
 const convertEmoji = require('./convertEmoji');
 const getConfig = require('./config');
-
-require('dotenv').config();
+const { getImageSrcs, downloadImage } = require('./helpers');
 
 const getFullUrl = (url) => `http://${getConfig('local.host')}:${getConfig('local.port')}/${url}`;
 
@@ -25,25 +30,71 @@ const makeRequest = (url, body) => new Promise((resolve, reject) =>
   })
 );
 
-const logUsers = ({body}) => {
-  body.forEach((user) => console.log(`${user.id}`));
+const logUsers = async ({body}) => {
+  const table = new Table({
+    head: ['No.', 'ID', 'Name'],
+    chars: { 'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': ''
+      , 'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': ''
+      , 'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': ''
+      , 'right': '' , 'right-mid': '' , 'middle': ' ' },
+  });
+
+  table.push(
+    ...body.map((user, index) => ([
+      index + 1,
+      user.id,
+      user.name.slice(0, 50)
+    ]))
+  );
+
+  console.log(table.toString());
+
   return body;
+};
+
+const isCurrentUser = (name) =>
+  process.env.NICK_NAMES.toLowerCase().split(',').indexOf(name.toLowerCase()) > -1;
+
+const downloadImages = (str, userName) => {
+  const images = getImageSrcs(str)
+    .filter((url) => url.indexOf('emoji.php') < 0);
+
+  if(images.length === 0) {
+    return;
+  }
+
+  const dateStr = sanitize(new Date().toISOString());
+  const ext = str.split('.').reverse()[0];
+  const dir = path.join(__dirname, `../tmp/${userName}/`);
+  const filePath = path.join(dir, `${dateStr}.${ext}`);
+
+  if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }
+
+  const promises = images.map((url) => downloadImage(url, filePath));
+  return Promise.all(promises);
 };
 
 const prepareMessage = async (message) => {
   let result = await convertEmoji(message.bodyText, message.bodyHtml);
+  await downloadImages(message.bodyHtml, message.name);
   return arToFranko(result);
 };
 
-const getNickNames = () => process.env.NICK_NAMES.split(',');
+const prepareName = async (name) => arToFranko(name);
 
 const logMessages = ({body}) => {
   let promise = Promise.resolve();
 
   body.forEach((message) => {
-    const name = getNickNames().indexOf(message.name.toLowerCase()) > -1 ? colors.red('Me: ') : colors.green(`${message.name}: `);
+    let name;
 
     promise = promise
+      .then(() => prepareName(message.name))
+      .then((userName) =>
+        isCurrentUser(userName) ? colors.red(`Me: `) : colors.green(`${userName}: `))
+      .then((_name) => name = _name)
       .then(() => prepareMessage(message))
       .then((prepared) => console.log(`${name}${prepared}`));
   });
